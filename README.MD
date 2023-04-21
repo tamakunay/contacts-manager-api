@@ -33,7 +33,7 @@ repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
 ## Authors
 
   - **Tafadzwa Makuyana** - 
-    [PurpleBooth](https://github.com/tamakunay)
+    [tamakunay](https://github.com/tamakunay)
 
 ## License
 
