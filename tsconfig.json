@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": "/src",
+    "target": "esnext",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": "dist",
+    "paths": {
+      "config/*": ["src/config/*"],
+      "controllers/*": ["src/controllers/*"],
+      "middleware/*": ["src/middleware/*"],
+      "models/*": ["src/models/*"],
+      "routes/*": ["src/routes/*"],
+      "services/*": ["src/services/*"],
+      "utils/*": ["src/utils/*"]
+    }
+  },
+  "path": {},
+  "exclude": ["node_modules", "dist", "**/*.test.ts"],
+  "include": ["src"]
+}
