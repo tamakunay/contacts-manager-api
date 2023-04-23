@@ -1,42 +1,23 @@
-import { Request, Response } from "express"
-import { ErrorConstants } from "../config"
+import { NextFunction, Request, Response } from "express"
+import ErrorResponse from "../interfaces/ErrorResponse"
 
-const errorHandler = (err: Error, req: Request, res: Response) => {
-  const statusCode = res.statusCode ? res.statusCode : 500
-  console.log("res.statusCode", res.statusCode)
-  // res.status(statusCode)
-  switch (statusCode) {
-    case ErrorConstants.VALIDATION_ERROR:
-      return res.status(ErrorConstants.VALIDATION_ERROR).json({
-        title: "Validation Failed",
-        message: err.message,
-        stack: process.env.NODE_ENV === "production" ? null : err.stack,
-      })
-    case ErrorConstants.NOT_FOUND:
-      return res.status(ErrorConstants.NOT_FOUND).json({
-        title: "Not Found",
-        message: err.message,
-        stack: process.env.NODE_ENV === "production" ? null : err.stack,
-      })
-    case ErrorConstants.UNATHORIZED:
-      return res.status(ErrorConstants.UNATHORIZED).json({
-        title: "Unathorized",
-        message: err.message,
-        stack: process.env.NODE_ENV === "production" ? null : err.stack,
-      })
-    case ErrorConstants.FORBIDDEN:
-      return res.status(ErrorConstants.FORBIDDEN).json({
-        title: "Forbidden",
-        message: err.message,
-        stack: process.env.NODE_ENV === "production" ? null : err.stack,
-      })
-    default:
-      return res.status(ErrorConstants.SERVER_ERROR).json({
-        title: "Server Error",
-        message: err.message,
-        stack: process.env.NODE_ENV === "production" ? null : err.stack,
-      })
-  }
+export function notFound(req: Request, res: Response, next: NextFunction) {
+  res.status(404)
+  const error = new Error(`🔍 - Not Found - ${req.originalUrl}`)
+  next(error)
 }
 
-export default errorHandler
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function errorHandler(
+  err: Error,
+  req: Request,
+  res: Response<ErrorResponse>,
+  next: NextFunction
+) {
+  const statusCode = res.statusCode !== 200 ? res.statusCode : 500
+  res.status(statusCode)
+  res.json({
+    message: err.message,
+    stack: process.env.NODE_ENV === "production" ? "🥞" : err.stack,
+  })
+}
