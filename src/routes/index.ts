@@ -6,7 +6,7 @@ import MessageResponse from "../interfaces/MessageResponse"
 const router = Router()
 
 // test route to check if the API is working
-router.get<"/", MessageResponse>("/", (req, res) => {
+router.get<object, MessageResponse>("/", (req, res) => {
   res.json({
     message: "API - working",
   })
